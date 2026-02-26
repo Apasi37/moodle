@@ -1,0 +1,44 @@
+<?php
+require(__DIR__ . '/../../config.php');
+
+require_login();
+
+// Only allow admins for this test page.
+$context = context_system::instance();
+require_capability('moodle/site:config', $context);
+
+$PAGE->set_context($context);
+$PAGE->set_url(new moodle_url('/local/yourplugin/testai.php'));
+$PAGE->set_pagelayout('standard');
+$PAGE->set_title('AI test');
+$PAGE->set_heading('AI test');
+
+echo $OUTPUT->header();
+
+try {
+    // Build the input for a simple text generation action.
+    $prompt = 'Generate a random short sentence.';
+
+    // Get the AI manager (service locator for the configured providers).
+    $manager = \core\di::get(\core_ai\manager::class);
+
+    $action = new \core_ai\aiactions\generate_text(
+        contextid: $context->id,
+        userid: $USER->id,
+        prompttext: $prompt
+    );
+
+    // Execute the core text generation action.
+    // The string 'core_ai\action\generate_text' is the action class name.
+    $result = $manager->process_action($action)->get_response_data();
+    var_dump($result);
+
+    echo('generated content: '.$result['generatedcontent']);
+    //echo html_writer::tag('h3', 'Model output');
+    //echo html_writer::div(format_text($genText, FORMAT_MARKDOWN), 'ai-output');
+
+} catch (\Throwable $e) {
+    echo html_writer::div('Error: ' . s($e->getMessage()), 'alert alert-danger');
+}
+
+echo $OUTPUT->footer();

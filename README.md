@@ -15,3 +15,6 @@
 
 <p>student test page</p>
 <img width="816" height="394" alt="image" src="https://github.com/user-attachments/assets/13842e02-10b5-45f0-8271-4f248bd7c166" />
+
+<p>AI usage dashboard</p>
+<img width="1257" height="672" alt="image" src="https://github.com/user-attachments/assets/710c2d09-5852-4970-b44d-ab254e171354" />

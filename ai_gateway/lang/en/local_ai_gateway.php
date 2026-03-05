@@ -1,2 +1,2 @@
 <?php
-$string['pluginname'] = 'AI Gateway';
+$string['pluginname'] = 'My AI Plugin';
